@@ -1,213 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>My Creepy Knowledge Archive</title>
+<div class="creepy-fish-container">
+  <svg class="creepy-fish" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+    <!-- Body: elongated dark fish shape with 3D shading -->
+    <defs>
+      <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#0a0a0a" />
+        <stop offset="50%" stop-color="#1a1a1a" />
+        <stop offset="100%" stop-color="#0a0a0a" />
+      </linearGradient>
+    </defs>
+    <ellipse cx="100" cy="50" rx="80" ry="35" fill="url(#bodyGrad)" stroke="#111" stroke-width="3" />
+    <!-- Tail fin -->
+    <polygon points="20,50 0,30 0,70" fill="#111" opacity="0.9" />
+    <!-- Dorsal fin -->
+    <polygon points="100,15 120,0 140,15" fill="#111" opacity="0.8" />
+    <!-- Weird glowing eye -->
+    <circle cx="140" cy="40" r="8" fill="#cc0000" filter="url(#glow)" />
+    <circle cx="142" cy="38" r="3" fill="#ff6666" />
+    <!-- Glow filter for eye -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </svg>
+</div>
+
 <style>
-/* ===== BODY AND TEXT ===== */
-body {
-  font-family: 'Courier New', monospace;
-  background-color: #ffc0cb; /* baby pink */
-  color: #1a1a1a;
-  margin: 0;
-  padding: 40px;
-  max-width: 1000px;
-  line-height: 1.7;
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* ===== HEADERS ===== */
-h1 {
-  text-align: center;
-  font-size: 3em;
-  color: #660033;
-  margin-bottom: 20px;
-  border-bottom: 3px solid #660033;
-  padding-bottom: 10px;
-}
-
-h2 {
-  color: #330011;
-  border-left: 6px solid #660033;
-  padding-left: 15px;
-  margin-top: 50px;
-}
-
-/* ===== PARAGRAPHS ===== */
-p {
-  margin-top: 15px;
-  white-space: pre-line;
-}
-
-/* ===== HR ===== */
-hr {
-  margin: 40px 0;
-  border-top: 2px dashed #660033;
-}
-
-/* ===== IMAGE SECTION ===== */
-.img-section img {
-  display: block;
-  margin: 20px auto;
-  max-width: 80%;
-  border-radius: 8px;
-  border: 2px solid #660033;
-}
-
-/* ===== MUSIC BUTTON ===== */
-#playMusicBtn {
-  background:#1a1a1a; 
-  color:#ffc0cb; 
-  padding:10px 20px; 
-  border:2px solid #660033; 
-  font-size:16px; 
-  cursor:pointer; 
-  margin: 20px 0;
-}
-
-/* ===== FLOATING MONSTERS ===== */
-.monster {
+.creepy-fish-container {
   position: fixed;
-  width: 100px;
-  z-index: 500;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 2; /* low so text readable, high enough to show */
+  overflow: hidden;
+}
+.creepy-fish {
+  width: 180px;
+  position: absolute;
   opacity: 0.7;
-  pointer-events: none;
+  filter: drop-shadow(0 0 15px rgba(200,0,0,0.4));
+  animation: swimCreepy 90s linear infinite;
 }
-
-@keyframes floatMonster {
-  0% {transform: translate(0, 0) rotate(0deg);}
-  25% {transform: translate(30vw, 10vh) rotate(20deg);}
-  50% {transform: translate(60vw, -10vh) rotate(-15deg);}
-  75% {transform: translate(90vw, 5vh) rotate(25deg);}
-  100% {transform: translate(100vw, 0) rotate(0deg);}
-}
-
-/* ===== FLOATING PIXELS ===== */
-.pixel {
-  position: fixed;
-  width: 25px;
-  z-index: 1000;
-  opacity: 0.7;
-  pointer-events: none;
-  animation: floatPixel 6s linear infinite alternate;
-  filter: sepia(0.6) contrast(1.2) brightness(0.8);
-}
-
-@keyframes floatPixel {
-  0% { transform: translate(0,0) rotate(0deg);}
-  25% { transform: translate(15px,-10px) rotate(15deg);}
-  50% { transform: translate(-10px,-20px) rotate(-15deg);}
-  75% { transform: translate(20px,-15px) rotate(10deg);}
-  100% { transform: translate(0,-10px) rotate(0deg);}
-}
-
-/* ===== VINTAGE OVERLAY ===== */
-body::before {
-  content: "";
-  position: fixed;
-  top:0; left:0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-      rgba(0,0,0,0.05) 0 1px,
-      rgba(0,0,0,0) 1px 2px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(0,0,0,0.03) 0 1px,
-      rgba(0,0,0,0) 1px 2px
-    );
-  mix-blend-mode: multiply;
-  z-index: 999;
+@keyframes swimCreepy {
+  0% {
+    transform: translate(-200px, 30vh) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(30vw, 20vh) rotate(8deg) scale(1.05);
+  }
+  50% {
+    transform: translate(60vw, 50vh) rotate(-10deg) scale(0.98);
+  }
+  75% {
+    transform: translate(90vw, 40vh) rotate(5deg) scale(1.03);
+  }
+  100% {
+    transform: translate(120vw, 30vh) rotate(0deg) scale(1);
+  }
 }
 </style>
-</head>
-
-<body>
-
-<h1>My Creepy Knowledge Archive</h1>
-<p>This is where I store what I see, feel, think, hear, smell</p>
-<hr>
-
-<h2>Physics</h2>
-<p>i hate it so sumch i ve always felt that it is fake , not true , edited , a lie</p>
-<div class="img-section">
-  <img src="images/haunted1.png" alt="creepy haunted picture">
-  <img src="images/haunted2.png" alt="dark creepy picture">
-</div>
-
-<hr>
-
-<h2>My Psychology</h2>
-<p>i usually 99% of time live with zero consciousness...</p>
-<div class="img-section">
-  <img src="images/haunted3.png" alt="haunted vintage picture">
-</div>
-
-<hr>
-
-<h2>My DS and Studies</h2>
-<p>I AM NOT PERFECT, I AM A HORRIBLE SAD MESS...</p>
-
-<!-- Music button -->
-<button id="playMusicBtn">PLAY MUSIC</button>
-<iframe id="ytPlayer" width="0" height="0"
-src="https://www.youtube.com/embed/nZOrhNlbFHc?enablejsapi=1"
-title="Music player"
-frameborder="0"
-allow="autoplay; encrypted-media"
-style="display:none;"></iframe>
-
-<script>
-// Music button
-const btn = document.getElementById('playMusicBtn');
-const player = document.getElementById('ytPlayer');
-btn.onclick = () => {
-  player.style.display = "block";
-  player.src += "&autoplay=1";
-  btn.innerText = "MUSIC PLAYING";
-  btn.disabled = true;
-};
-
-// Floating monsters
-const monsterImages = [
-  "images/monster1.png",
-  "images/monster2.png",
-  "images/monster3.png"
-];
-monsterImages.forEach(url => {
-  let m = document.createElement('img');
-  m.src = url;
-  m.className = 'monster';
-  m.style.top = Math.random()*window.innerHeight + 'px';
-  m.style.left = Math.random()*window.innerWidth + 'px';
-  m.style.animation = `floatMonster ${8+Math.random()*10}s linear infinite alternate`;
-  document.body.appendChild(m);
-});
-
-// Floating vintage pixels
-const pixelImages = [
-  "images/pixel1.png",
-  "images/pixel2.png",
-  "images/pixel3.png",
-  "images/pixel4.png"
-];
-pixelImages.forEach(url => {
-  let p = document.createElement('img');
-  p.src = url;
-  p.className = 'pixel';
-  p.style.top = Math.random()*window.innerHeight + 'px';
-  p.style.left = Math.random()*window.innerWidth + 'px';
-  p.style.animationDuration = (5+Math.random()*5)+'s';
-  document.body.appendChild(p);
-});
-</script>
-
-</body>
-</html>
-
 
 
 
