@@ -82,3 +82,76 @@
 
 </body>
 </html>
+<!-- Begin Decorations / Animations -->
+<style>
+/* Baby pink accents */
+body {
+  --accent-color: #ffc0cb;
+}
+
+/* Floating fish */
+.fish {
+  position: fixed;
+  width: 60px;
+  animation: swim 15s linear infinite;
+  z-index: 0;
+}
+
+@keyframes swim {
+  0% { transform: translateX(-100px) translateY(0) rotate(0deg);}
+  25% { transform: translateX(25vw) translateY(5vh) rotate(10deg);}
+  50% { transform: translateX(50vw) translateY(-5vh) rotate(-10deg);}
+  75% { transform: translateX(75vw) translateY(5vh) rotate(10deg);}
+  100% { transform: translateX(110vw) translateY(0) rotate(0deg);}
+}
+
+/* Moving creepy monsters */
+.monster {
+  position: fixed;
+  width: 80px;
+  animation: creep 10s linear infinite alternate;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+@keyframes creep {
+  0% { transform: translate(0, 0) rotate(0deg);}
+  25% { transform: translate(30vw, 10vh) rotate(20deg);}
+  50% { transform: translate(60vw, -10vh) rotate(-15deg);}
+  75% { transform: translate(90vw, 5vh) rotate(25deg);}
+  100% { transform: translate(100vw, 0) rotate(0deg);}
+}
+
+/* Pink borders around sections */
+h2 {
+  border-left: 5px solid var(--accent-color);
+}
+
+hr {
+  border-top: 2px dashed var(--accent-color);
+}
+</style>
+
+<script>
+// Add multiple fish dynamically
+for (let i = 0; i < 5; i++) {
+  let fish = document.createElement('img');
+  fish.src = 'https://i.postimg.cc/4d4VfMZq/fish.png'; // example cute fish image
+  fish.className = 'fish';
+  fish.style.top = Math.random() * window.innerHeight + 'px';
+  fish.style.animationDuration = (10 + Math.random() * 10) + 's';
+  document.body.appendChild(fish);
+}
+
+// Add multiple monsters dynamically
+for (let i = 0; i < 3; i++) {
+  let monster = document.createElement('img');
+  monster.src = 'https://i.postimg.cc/XYLqf7mH/monster.png'; // example creepy monster image
+  monster.className = 'monster';
+  monster.style.top = Math.random() * window.innerHeight + 'px';
+  monster.style.animationDuration = (8 + Math.random() * 8) + 's';
+  document.body.appendChild(monster);
+}
+</script>
+<!-- End Decorations / Animations -->
+
