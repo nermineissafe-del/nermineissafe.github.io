@@ -193,7 +193,7 @@ body::before {
   border: 2px solid #660033; /* deep pink border */
   z-index: 5;
 }
-</style>
+
 
 <!-- Begin Dark Vintage Decorations / GIFs -->
 <style>
@@ -249,4 +249,47 @@ body::before {
   <img src="https://media.tenor.com/o7O55-0dFLcAAAAd/creepy-shadow.gif" alt="creepy shadow">
   <img src="https://media.tenor.com/K_q5YxqyduQAAAAd/vhs-horror.gif" alt="vhs horror">
   <img src="https://media.tenor.com/ZuJ8Tn56kYEAAAAC/haunted-house.gif" alt="haunted house">
-  <p style="text-align:center; font-style:italic;">my paren
+  <p style="text-align:center; font-style:italic;">my parents 
+    <!-- Begin Old Pixel Vintage Decorations -->
+<style>
+/* Floating vintage pixel retro decorations */
+.vintage-pixel {
+  position: fixed;
+  width: 25px;
+  z-index: 100;
+  animation: floatVintage 8s linear infinite alternate;
+  opacity: 0.7;
+  filter: sepia(0.6) contrast(1.2) brightness(0.8); /* old retro look */
+}
+
+@keyframes floatVintage {
+  0% { transform: translate(0,0) rotate(0deg);}
+  25% { transform: translate(15px,-10px) rotate(15deg);}
+  50% { transform: translate(-10px,-25px) rotate(-15deg);}
+  75% { transform: translate(20px,-15px) rotate(10deg);}
+  100% { transform: translate(0,-10px) rotate(0deg);}
+}
+</style>
+
+<script>
+// Working old pixel GIFs (vintage / retro / creepy)
+const vintagePixelUrls = [
+  "https://media.tenor.com/7o3VfEbqS5sAAAAC/vhs-static.gif",     // VHS static
+  "https://media.tenor.com/bqZqH5ssx2cAAAAC/old-tv-glitch.gif",  // TV glitch
+  "https://media.tenor.com/8n8BqPZKj6gAAAAC/pixel-flicker.gif",   // pixel flicker
+  "https://media.tenor.com/GhR7nLd3JgAAAAAC/retro-pixel.gif",    // retro pixel animation
+  "https://media.tenor.com/2FReu2ZL0WIAAAAC/old-computer.gif"    // old computer pixel
+];
+
+for (let i=0;i<vintagePixelUrls.length;i++){
+  let pixel = document.createElement('img');
+  pixel.src = vintagePixelUrls[i];
+  pixel.className = 'vintage-pixel';
+  pixel.style.top = Math.random()*window.innerHeight + 'px';
+  pixel.style.left = Math.random()*window.innerWidth + 'px';
+  pixel.style.animationDuration = (6 + Math.random()*6) + 's';
+  document.body.appendChild(pixel);
+}
+</script>
+<!-- End Old Pixel Vintage Decorations -->
+
