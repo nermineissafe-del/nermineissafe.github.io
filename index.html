@@ -1,87 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My save ,prve,hope i feel smthg while reading this</title>
+<meta charset="UTF-8">
+<title>My save ,prve,hope i feel smthg while reading this</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffc0cb; /* baby pink background */
-      color: #1a1a1a;           /* dark text for contrast */
-      max-width: 900px;
-      margin: auto;
-      padding: 40px;
-      line-height: 1.7;
-      position: relative;
-      overflow-x: hidden;
-    }
+<style>
+  /* ---------------- Body and Text ---------------- */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #ffc0cb; /* baby pink background */
+    color: #1a1a1a;           /* dark text */
+    max-width: 900px;
+    margin: auto;
+    padding: 40px;
+    line-height: 1.7;
+    position: relative;
+    overflow-x: hidden;
+  }
 
-    h1 {
-      text-align: center;
-      color: #660033; /* deep dark pink */
-      border-bottom: 2px solid #660033;
-      padding-bottom: 15px;
-    }
+  h1 {
+    text-align: center;
+    color: #660033; /* deep dark pink */
+    border-bottom: 2px solid #660033;
+    padding-bottom: 15px;
+  }
 
-    h2 {
-      margin-top: 40px;
-      color: #330011; /* dark header color */
-      border-left: 5px solid #660033;
-      padding-left: 10px;
-    }
+  h2 {
+    margin-top: 40px;
+    color: #330011; /* dark header color */
+    border-left: 5px solid #660033;
+    padding-left: 10px;
+  }
 
-    p {
-      margin-top: 15px;
-      white-space: pre-line;
-    }
+  p {
+    margin-top: 15px;
+    white-space: pre-line;
+  }
 
-    hr {
-      margin: 40px 0;
-      border-top: 2px dashed #660033;
-    }
+  hr {
+    margin: 40px 0;
+    border-top: 2px dashed #660033;
+  }
 
-    img {
-      display: block;
-      margin: 20px auto;
-      max-width: 100%;
-      border-radius: 8px;
-    }
+  img {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    border-radius: 8px;
+  }
 
-    /* floating creepy monsters */
-    .monster {
-      position: fixed;
-      width: 100px;
-      z-index: 0;
-      opacity: 0.6;
-      pointer-events: none;
-    }
+  /* ---------------- Music Button ---------------- */
+  #playMusicBtn {
+    background:#1a1a1a; 
+    color:#ffc0cb; 
+    padding:10px 20px; 
+    border:2px solid #660033; 
+    font-size:16px; 
+    cursor:pointer; 
+    margin: 20px 0;
+  }
 
-    @keyframes floatMonster {
-      0% {transform: translate(0, 0) rotate(0deg);}
-      25% {transform: translate(30vw, 10vh) rotate(20deg);}
-      50% {transform: translate(60vw, -10vh) rotate(-15deg);}
-      75% {transform: translate(90vw, 5vh) rotate(25deg);}
-      100% {transform: translate(100vw, 0) rotate(0deg);}
-    }
+  /* ---------------- Floating Monsters ---------------- */
+  .monster {
+    position: fixed;
+    width: 100px;
+    z-index: 500;
+    opacity: 0.6;
+    pointer-events: none;
+  }
 
-    /* Music button styling */
-    #playMusicBtn {
-      background:#1a1a1a; 
-      color:#ffc0cb; 
-      padding:10px 20px; 
-      border:2px solid #660033; 
-      font-size:16px; 
-      cursor:pointer; 
-      margin: 20px 0;
-    }
-  </style>
+  @keyframes floatMonster {
+    0% {transform: translate(0, 0) rotate(0deg);}
+    25% {transform: translate(30vw, 10vh) rotate(20deg);}
+    50% {transform: translate(60vw, -10vh) rotate(-15deg);}
+    75% {transform: translate(90vw, 5vh) rotate(25deg);}
+    100% {transform: translate(100vw, 0) rotate(0deg);}
+  }
+
+  /* ---------------- Vintage Overlay ---------------- */
+  body::before {
+    content: "";
+    position: fixed;
+    top:0; left:0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        rgba(0,0,0,0.05) 0 1px,
+        rgba(0,0,0,0) 1px 2px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(0,0,0,0.03) 0 1px,
+        rgba(0,0,0,0) 1px 2px
+      );
+    mix-blend-mode: multiply;
+    z-index: 999;
+  }
+
+  /* ---------------- Floating Pixel / Emoji ---------------- */
+  .floating-pixel {
+    position: fixed;
+    width: 25px;
+    z-index: 1000;
+    animation: floatPixel 6s linear infinite alternate;
+    opacity: 0.7;
+    filter: sepia(0.6) contrast(1.2) brightness(0.8);
+    pointer-events: none;
+  }
+
+  @keyframes floatPixel {
+    0% { transform: translate(0,0) rotate(0deg);}
+    25% { transform: translate(15px,-10px) rotate(15deg);}
+    50% { transform: translate(-10px,-20px) rotate(-15deg);}
+    75% { transform: translate(20px,-15px) rotate(10deg);}
+    100% { transform: translate(0,-10px) rotate(0deg);}
+  }
+
+  /* ---------------- GIF Section ---------------- */
+  .gif-section img {
+    display: block;
+    margin: 20px auto;
+    max-width: 80%;
+    border-radius: 6px;
+    border: 2px solid #660033;
+    z-index: 5;
+  }
+</style>
 </head>
 
 <body>
-
 <h1>My Knowledge Archive</h1>
-
 <p>This is where I store what I see,feel,think,hear,smell</p>
 
 <hr>
@@ -89,33 +138,34 @@
 <h2>Physics</h2>
 <p>i hate it so sumch i ve always felt that it is fake , not true , edited , a lie</p>
 
-<!-- Dark / creepy GIFs -->
-<img src="https://media.tenor.com/7nNkXe7EY3oAAAAC/creepy-face.gif" alt="creepy face">
-<img src="https://media.tenor.com/5gB_u3QeQFQAAAAC/monster-shadow.gif" alt="shadow monster">
-<img src="https://media.tenor.com/_1ZCWLAzym8AAAAC/horror-dark.gif" alt="horror dark">
-<img src="https://media.tenor.com/cLF2HI4eOt0AAAAC/scary.gif" alt="scary blinking face">
+<div class="gif-section">
+  <img src="https://media.tenor.com/7nNkXe7EY3oAAAAC/creepy-face.gif" alt="creepy face">
+  <img src="https://media.tenor.com/5gB_u3QeQFQAAAAC/monster-shadow.gif" alt="shadow monster">
+  <img src="https://media.tenor.com/_1ZCWLAzym8AAAAC/horror-dark.gif" alt="horror dark">
+  <img src="https://media.tenor.com/cLF2HI4eOt0AAAAC/scary.gif" alt="scary blinking face">
+</div>
 
 <hr>
 
 <h2>my Psychology</h2>
-<p>i usually 99% of time live with zero consciousness,like now.i thnk what i say next doesnt matter since what i just said is very true , however i fell so sad because i can't let my dog shika in the house , i am not passing so much time with her, my family are ugly nsters, my country is not beautiful; i hate my university ; and ii hate most of what  eat, i am a very sad gir.sad scared and unconscious girl.</p>
+<p>i usually 99% of time live with zero consciousness,like now.i thnk what i say next doesnt matter since what i just said is very true , however i fell so sad because i can't let my dog shika in the house , i am not passing so much time with her, my family are ugly nsters, my country is not beautiful; i hate my university ; and ii hate most of what eat, i am a very sad gir.sad scared and unconscious girl.</p>
 
 <hr>
 
 <h2>my 'ds' of second semester are comming after 4 days and 1 week including today , time did nothing but fucked me up mre than those boring studies, sae thing for schedules , starting point(saying iw ill be a perfect student from now on)FUCK IT I'AM NOT PERFECT</h2>
 <p>I AM NOT PERFECT , I AM A HORRIBLE SAD MESS, AND THAT'S OK ,BECAUSE MY CAT IS A MESS TOO.AND I VE ALWAYS LOVED HIM ANYWAYS.</p>
 
-<!-- Music play button -->
+<!-- ---------------- Music ---------------- -->
 <button id="playMusicBtn">PLAY MUSIC</button>
 <iframe id="ytPlayer" width="0" height="0"
 src="https://www.youtube.com/embed/nZOrhNlbFHc?enablejsapi=1"
 title="Music player"
 frameborder="0"
 allow="autoplay; encrypted-media"
-style="display:none;">
-</iframe>
+style="display:none;"></iframe>
 
 <script>
+// Music button
 const btn = document.getElementById('playMusicBtn');
 const player = document.getElementById('ytPlayer');
 btn.onclick = () => {
@@ -123,173 +173,46 @@ btn.onclick = () => {
   player.src += "&autoplay=1";
   btn.innerText = "MUSIC PLAYING";
   btn.disabled = true;
-}
+};
 
-// Add floating creepy monsters
-const monsterUrls = [
+// ---------------- Floating Monsters ----------------
+const monsterGIFs = [
   "https://media.tenor.com/5gB_u3QeQFQAAAAC/monster-shadow.gif",
   "https://media.tenor.com/_1ZCWLAzym8AAAAC/horror-dark.gif",
   "https://media.tenor.com/cLF2HI4eOt0AAAAC/scary.gif"
 ];
 
-for (let i=0;i<monsterUrls.length;i++){
+for (let i=0;i<monsterGIFs.length;i++){
   let m = document.createElement('img');
-  m.src = monsterUrls[i];
+  m.src = monsterGIFs[i];
   m.className = 'monster';
   m.style.top = Math.random()*window.innerHeight + 'px';
   m.style.left = Math.random()*window.innerWidth + 'px';
   m.style.animation = `floatMonster ${8+Math.random()*10}s linear infinite alternate`;
   document.body.appendChild(m);
 }
+
+// ---------------- Floating Pixel / Emoji Decorations ----------------
+const pixelGIFs = [
+  "https://i.postimg.cc/6QyW4DkT/pixel-heart.gif",
+  "https://i.postimg.cc/Y0H4JHkZ/pixel-skull.gif",
+  "https://i.postimg.cc/9QvG7xLw/pixel-star.gif",
+  "https://i.postimg.cc/3x30XkJ2/pixel-moon.gif",
+  "https://i.postimg.cc/F0k9j6vH/pixel-bat.gif"
+];
+
+for (let i=0;i<pixelGIFs.length;i++){
+  let e = document.createElement('img');
+  e.src = pixelGIFs[i];
+  e.className = 'floating-pixel';
+  e.style.top = Math.random()*window.innerHeight + 'px';
+  e.style.left = Math.random()*window.innerWidth + 'px';
+  e.style.animationDuration = (5 + Math.random()*5) + 's';
+  document.body.appendChild(e);
+}
 </script>
 
 </body>
 </html>
 
-<!-- Begin Dark Vintage Decorations / GIFs -->
-<style>
-/* Vintage overlay effect */
-body::before {
-  content: "";
-  position: fixed;
-  top:0; left:0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-      rgba(0,0,0,0.05) 0 1px,
-      rgba(0,0,0,0) 1px 2px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(0,0,0,0.03) 0 1px,
-      rgba(0,0,0,0) 1px 2px
-    );
-  mix-blend-mode: multiply;
-  z-index: 10;
-}
-
-/* Floating vintage pixel emojis */
-.pixel-emoji {
-  position: fixed;
-  width: 20px;
-  z-index: 100;
-  animation: floatEmoji 6s linear infinite alternate;
-  opacity: 0.7;
-}
-
-@keyframes floatEmoji {
-  0% { transform: translate(0,0) rotate(0deg);}
-  50% { transform: translate(10px,-20px) rotate(15deg);}
-  100% { transform: translate(-10px,-10px) rotate(-15deg);}
-}
-
-/* GIF container styling */
-.gif-section img {
-  display: block;
-  margin: 20px auto;
-  max-width: 80%;
-  border-radius: 6px;
-  border: 2px solid #660033; /* deep pink border */
-  z-index: 5;
-}
-
-
-<!-- Begin Dark Vintage Decorations / GIFs -->
-<style>
-/* Vintage overlay effect (old film look) */
-body::before {
-  content: "";
-  position: fixed;
-  top:0; left:0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-      rgba(0,0,0,0.05) 0 1px,
-      rgba(0,0,0,0) 1px 2px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(0,0,0,0.03) 0 1px,
-      rgba(0,0,0,0) 1px 2px
-    );
-  mix-blend-mode: multiply;
-  z-index: 10;
-}
-
-/* Floating vintage pixel decorations */
-.pixel-deco {
-  position: fixed;
-  width: 25px;
-  z-index: 100;
-  animation: floatPixel 6s linear infinite alternate;
-  opacity: 0.7;
-}
-
-@keyframes floatPixel {
-  0% { transform: translate(0,0) rotate(0deg);}
-  50% { transform: translate(10px,-20px) rotate(15deg);}
-  100% { transform: translate(-10px,-10px) rotate(-15deg);}
-}
-
-/* GIF section styling */
-.gif-section img {
-  display: block;
-  margin: 20px auto;
-  max-width: 80%;
-  border-radius: 6px;
-  border: 2px solid #660033; /* deep pink border */
-  z-index: 5;
-}
-</style>
-
-<div class="gif-section">
-  <!-- Dark creepy GIFs (working URLs) -->
-  <img src="https://media.tenor.com/o7O55-0dFLcAAAAd/creepy-shadow.gif" alt="creepy shadow">
-  <img src="https://media.tenor.com/K_q5YxqyduQAAAAd/vhs-horror.gif" alt="vhs horror">
-  <img src="https://media.tenor.com/ZuJ8Tn56kYEAAAAC/haunted-house.gif" alt="haunted house">
-  <p style="text-align:center; font-style:italic;">my parents 
-    <!-- Begin Old Pixel Vintage Decorations -->
-<style>
-/* Floating vintage pixel retro decorations */
-.vintage-pixel {
-  position: fixed;
-  width: 25px;
-  z-index: 100;
-  animation: floatVintage 8s linear infinite alternate;
-  opacity: 0.7;
-  filter: sepia(0.6) contrast(1.2) brightness(0.8); /* old retro look */
-}
-
-@keyframes floatVintage {
-  0% { transform: translate(0,0) rotate(0deg);}
-  25% { transform: translate(15px,-10px) rotate(15deg);}
-  50% { transform: translate(-10px,-25px) rotate(-15deg);}
-  75% { transform: translate(20px,-15px) rotate(10deg);}
-  100% { transform: translate(0,-10px) rotate(0deg);}
-}
-</style>
-
-<script>
-// Working old pixel GIFs (vintage / retro / creepy)
-const vintagePixelUrls = [
-  "https://media.tenor.com/7o3VfEbqS5sAAAAC/vhs-static.gif",     // VHS static
-  "https://media.tenor.com/bqZqH5ssx2cAAAAC/old-tv-glitch.gif",  // TV glitch
-  "https://media.tenor.com/8n8BqPZKj6gAAAAC/pixel-flicker.gif",   // pixel flicker
-  "https://media.tenor.com/GhR7nLd3JgAAAAAC/retro-pixel.gif",    // retro pixel animation
-  "https://media.tenor.com/2FReu2ZL0WIAAAAC/old-computer.gif"    // old computer pixel
-];
-
-for (let i=0;i<vintagePixelUrls.length;i++){
-  let pixel = document.createElement('img');
-  pixel.src = vintagePixelUrls[i];
-  pixel.className = 'vintage-pixel';
-  pixel.style.top = Math.random()*window.innerHeight + 'px';
-  pixel.style.left = Math.random()*window.innerWidth + 'px';
-  pixel.style.animationDuration = (6 + Math.random()*6) + 's';
-  document.body.appendChild(pixel);
-}
-</script>
-<!-- End Old Pixel Vintage Decorations -->
 
