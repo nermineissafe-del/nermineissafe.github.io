@@ -4,60 +4,124 @@
 <meta charset="UTF-8">
 <title>My Creepy Knowledge Archive</title>
 <style>
+/* ===== BODY ===== */
 body {
   font-family: 'Courier New', monospace;
-  background-color: #ffc0cb;
+  background-color: #ffc0cb; /* baby pink */
   color: #1a1a1a;
-  margin: 0; padding: 40px;
+  margin: 0;
+  padding: 40px;
   max-width: 1000px;
   line-height: 1.7;
-  position: relative; overflow-x: hidden;
+  position: relative;
+  overflow-x: hidden;
 }
-/* Old paper overlay */
-body::before {
-  content:"";
-  position:fixed; inset:0;
-  background: repeating-linear-gradient(
-      rgba(0,0,0,0.05) 0 1px, rgba(0,0,0,0) 1px 2px),
-    repeating-linear-gradient(
-      90deg, rgba(0,0,0,0.03) 0 1px, rgba(0,0,0,0) 1px 2px);
-  mix-blend-mode:multiply;
-  pointer-events:none;
-  z-index:999;
-}
+
+/* ===== HEADERS ===== */
 h1 {
-  text-align:center;
-  font-size:3em;
-  color:#660033;
-  border-bottom:3px solid #660033;
-  padding-bottom:10px;
+  text-align: center;
+  font-size: 3em;
+  color: #660033;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #660033;
+  padding-bottom: 10px;
 }
+
 h2 {
-  color:#330011;
-  border-left:6px solid #660033;
-  padding-left:15px;
-  margin-top:50px;
+  color: #330011;
+  border-left: 6px solid #660033;
+  padding-left: 15px;
+  margin-top: 50px;
 }
-p { margin-top:15px; white-space:pre-line;}
+
+/* ===== PARAGRAPHS ===== */
+p {
+  margin-top: 15px;
+  white-space: pre-line;
+}
+
+/* ===== HR ===== */
 hr {
-  margin:40px 0;
-  border-top:2px dashed #660033;
+  margin: 40px 0;
+  border-top: 2px dashed #660033;
 }
-img { display:block; margin:20px auto; max-width:80%; border-radius:8px; border:2px solid #660033; }
+
+/* ===== IMAGE SECTIONS ===== */
+.img-section img {
+  display: block;
+  margin: 20px auto;
+  max-width: 80%;
+  border-radius: 8px;
+  border: 2px solid #660033;
+}
+
+/* ===== MUSIC BUTTON ===== */
 #playMusicBtn {
-  display:block; margin:30px auto; padding:15px 50px;
-  font-size:1.4em; background:#000; color:#ffc0cb;
-  border:3px solid #660033; border-radius:8px; cursor:pointer;
+  background:#1a1a1a; 
+  color:#ffc0cb; 
+  padding:10px 20px; 
+  border:2px solid #660033; 
+  font-size:16px; 
+  cursor:pointer; 
+  margin: 20px 0;
 }
-.spook {
-  position:fixed; width:45px; opacity:0.7;
-  pointer-events:none; z-index:900;
-  animation: floatSpook 6s linear infinite alternate;
+
+/* ===== FLOATING MONSTERS ===== */
+.monster {
+  position: fixed;
+  width: 100px;
+  z-index: 500;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: floatMonster linear infinite alternate;
 }
-@keyframes floatSpook {
-  0% {transform:translate(0,0) rotate(0deg);}
-  50% {transform:translate(25px,-20px) rotate(12deg);}
-  100% {transform:translate(-15px,-15px) rotate(-10deg);}
+
+@keyframes floatMonster {
+  0% { transform: translate(0, 0) rotate(0deg);}
+  25% { transform: translate(30vw, 10vh) rotate(20deg);}
+  50% { transform: translate(60vw, -10vh) rotate(-15deg);}
+  75% { transform: translate(90vw, 5vh) rotate(25deg);}
+  100% { transform: translate(100vw, 0) rotate(0deg);}
+}
+
+/* ===== FLOATING PIXELS ===== */
+.pixel {
+  position: fixed;
+  width: 25px;
+  z-index: 1000;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: floatPixel linear infinite alternate;
+  filter: sepia(0.6) contrast(1.2) brightness(0.8);
+}
+
+@keyframes floatPixel {
+  0% { transform: translate(0,0) rotate(0deg);}
+  25% { transform: translate(15px,-10px) rotate(15deg);}
+  50% { transform: translate(-10px,-20px) rotate(-15deg);}
+  75% { transform: translate(20px,-15px) rotate(10deg);}
+  100% { transform: translate(0,-10px) rotate(0deg);}
+}
+
+/* ===== VINTAGE OVERLAY ===== */
+body::before {
+  content: "";
+  position: fixed;
+  top:0; left:0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+      rgba(0,0,0,0.05) 0 1px,
+      rgba(0,0,0,0) 1px 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,0,0,0.03) 0 1px,
+      rgba(0,0,0,0) 1px 2px
+    );
+  mix-blend-mode: multiply;
+  z-index: 999;
 }
 </style>
 </head>
@@ -65,32 +129,37 @@ img { display:block; margin:20px auto; max-width:80%; border-radius:8px; border:
 
 <h1>My Creepy Knowledge Archive</h1>
 <p>This is where I store what I see, feel, think, hear, smell</p>
-
-<button id="playMusicBtn">PLAY MUSIC</button>
-<iframe id="ytPlayer" width="0" height="0"
-src="https://www.youtube.com/embed/nZOrhNlbFHc?enablejsapi=1"
-allow="autoplay; encrypted-media" style="display:none;"></iframe>
-
 <hr>
 
 <h2>Physics</h2>
-<p>i hate it so sumch i ve always felt that it is fake, not true, edited, a lie</p>
-<img src="REPLACE_WITH_YOUR_RAW_GITHUB_LINK_1" alt="creepy image">
+<p>i hate it so sumch i ve always felt that it is fake , not true , edited , a lie</p>
+<div class="img-section">
+  <img src="images/haunted1.png" alt="creepy haunted picture">
+  <img src="images/haunted2.png" alt="dark creepy picture">
+</div>
 
 <hr>
-
 <h2>My Psychology</h2>
 <p>i usually 99% of time live with zero consciousness...</p>
-<img src="REPLACE_WITH_YOUR_RAW_GITHUB_LINK_2" alt="creepy image">
+<div class="img-section">
+  <img src="images/haunted3.png" alt="haunted vintage picture">
+</div>
 
 <hr>
-
 <h2>My DS and Studies</h2>
 <p>I AM NOT PERFECT, I AM A HORRIBLE SAD MESS...</p>
-<img src="REPLACE_WITH_YOUR_RAW_GITHUB_LINK_3" alt="creepy image">
+
+<!-- Music button -->
+<button id="playMusicBtn">PLAY MUSIC</button>
+<iframe id="ytPlayer" width="0" height="0"
+src="https://www.youtube.com/embed/nZOrhNlbFHc?enablejsapi=1"
+title="Music player"
+frameborder="0"
+allow="autoplay; encrypted-media"
+style="display:none;"></iframe>
 
 <script>
-// Music button
+// Music
 const btn = document.getElementById('playMusicBtn');
 const player = document.getElementById('ytPlayer');
 btn.onclick = () => {
@@ -100,24 +169,34 @@ btn.onclick = () => {
   btn.disabled = true;
 };
 
-// Floating spooky images
-const spookyUrls = [
-  "REPLACE_WITH_YOUR_RAW_GITHUB_LINK_1",
-  "REPLACE_WITH_YOUR_RAW_GITHUB_LINK_2",
-  "REPLACE_WITH_YOUR_RAW_GITHUB_LINK_3"
-];
-spookyUrls.forEach(url => {
-  let s = document.createElement('img');
-  s.src = url;
-  s.className = 'spook';
-  s.style.top = Math.random()*window.innerHeight + 'px';
-  s.style.left = Math.random()*window.innerWidth + 'px';
-  document.body.appendChild(s);
+// Floating monsters
+const monsterImages = ["images/monster1.png","images/monster2.png","images/monster3.png"];
+monsterImages.forEach(url=>{
+  let m = document.createElement('img');
+  m.src = url;
+  m.className='monster';
+  m.style.top=Math.random()*window.innerHeight+'px';
+  m.style.left=Math.random()*window.innerWidth+'px';
+  m.style.animationDuration=(8+Math.random()*10)+'s';
+  document.body.appendChild(m);
+});
+
+// Floating vintage pixels
+const pixelImages = ["images/pixel1.png","images/pixel2.png","images/pixel3.png","images/pixel4.png"];
+pixelImages.forEach(url=>{
+  let p = document.createElement('img');
+  p.src = url;
+  p.className='pixel';
+  p.style.top=Math.random()*window.innerHeight+'px';
+  p.style.left=Math.random()*window.innerWidth+'px';
+  p.style.animationDuration=(5+Math.random()*5)+'s';
+  document.body.appendChild(p);
 });
 </script>
 
 </body>
 </html>
+
 
 
 
