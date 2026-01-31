@@ -216,86 +216,6 @@ for (let row = 0; row < 8; row++) {
 </script>
 </body>
 </html>
-<!-- ===== GENTLE TREE CHAT ===== -->
-<div id="treeChat" style="margin-top:50px; padding:20px; border:2px solid #660033; background:#f5e6c8; display:flex; flex-direction:column; align-items:center; box-shadow:0 10px 25px rgba(0,0,0,.3);">
-
-  <div id="chatBox" style="width:100%; max-width:500px;">
-    <div id="chatMessages" style="min-height:120px; padding:10px; border:1px solid #8b6f47; background:#fff; overflow-y:auto; margin-bottom:10px; font-family:'Courier New', monospace;"></div>
-    <input type="text" id="chatInput" placeholder="Type your answer and press Enter" style="width:100%; padding:10px; font-family:'Courier New', monospace;"/>
-  </div>
-</div>
-
-<script>
-(function(){
-  const chatMessages = document.getElementById("chatMessages");
-  const chatInput = document.getElementById("chatInput");
-
-  const questions = [
-    {
-      q: "Who are you?",
-      replies: {
-        default: "You are air, you have dreams, which makes anything possible. Smile, you are not in a prison."
-      }
-    },
-    {
-      q: "Did you wash your face, breathe cold air, and drink water?",
-      replies: {
-        yes: "I love you. You're doing so great. Remember, every time you invest in loving your body, your body will return it.",
-        no: "Oh baby, it's okay. Nothing is more important than air, and you are everything here, even if disconnection makes it seem otherwise. Let's go and love you now."
-      }
-    },
-    {
-      q: "Did you wash your face, breathe cold air, and drink water?",
-      replies: {
-        yes: "I love you. You're doing so great. Remember, every time you invest in loving your body, your body will return it.",
-        no: "Oh baby, it's okay. Nothing is more important than air, and you are everything here, even if disconnection makes it seem otherwise. Let's go and love you now."
-      }
-    },
-    {
-      q: "Are you scared?",
-      replies: {
-        yes: "ow little baby,if you feel scared it's valid. but never forget how you scared the shit out of them when they buillied you in streets , how you burned them 'parents' when they mess with you how you amways stand for whom you love yo are so powerfull and loving you can and should feel safe with you ."
-      }
-    }
-  ];
-
-  let pendingQuestions = [];
-
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
-  function askQuestion() {
-    if(pendingQuestions.length === 0){
-      pendingQuestions = shuffle([...questions]);
-    }
-    const qObj = pendingQuestions.shift();
-    chatMessages.innerHTML += `<div style="color:#660033;">💬 ${qObj.q}</div>`;
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-    return qObj;
-  }
-
-  let currentQ = askQuestion();
-
-  chatInput.addEventListener("keydown", function(e){
-    if(e.key === "Enter"){
-      e.preventDefault();
-      const answer = chatInput.value.trim().toLowerCase();
-      if(!answer) return;
-      chatMessages.innerHTML += `<div style="color:#000;">📝 ${answer}</div>`;
-      let reply = currentQ.replies.default || currentQ.replies[answer] || currentQ.replies['no'] || currentQ.replies['yes'];
-      chatMessages.innerHTML += `<div style="color:#008000;">🌳 ${reply}</div>`;
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      chatInput.value = "";
-      currentQ = askQuestion();
-    }
-  });
-})();
-</script>
 <!-- ================== TREE CHAT ================== -->
 <div id="treeChat">
   <div id="treeMessages"></div>
@@ -415,3 +335,97 @@ for (let row = 0; row < 8; row++) {
     }
   });
 </script>
+<!-- ================== CLOUD OF THOUGHTS ================== -->
+<div id="cloudContainer">
+  <div id="cloudMessages"></div>
+  <input type="text" id="cloudInput" placeholder="Share your thought...">
+</div>
+
+<style>
+  #cloudContainer {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 320px;
+    max-height: 400px;
+    background: #1a0a2a; /* deep purple cloud */
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #e0e0f0;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    z-index: 9999;
+  }
+
+  #cloudMessages {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  #cloudInput {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #8b6f47;
+    background: #2b1a45;
+    color: #f5e6c8;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cloudMsg {
+    margin-bottom: 8px;
+    line-height: 1.4;
+    font-weight: bold;
+  }
+
+  .cloudMsg.cloud { color: #7ee57f; }  /* cloud responses green */
+  .cloudMsg.user { color: #f5e6c8; }   /* user input cream */
+</style>
+
+<script>
+  const cloudMessages = document.getElementById("cloudMessages");
+  const cloudInput = document.getElementById("cloudInput");
+
+  const gentleResponses = [
+    "☁️ I hear you, and it’s okay to feel that baby-girl.",
+    "🌿 Take a deep breath, you are safe here, i protect you , even if you don't see it , i sheiling you now.",
+    "✨ That thought matters a lot a looooooooot, thank you for sharing baby.",
+    "☁️ well i adore you, even when things feel heavy even when you get anxious even when you change even when you dissappear.",
+    "🌟 Remember: small moments of care are still very powerful if you actuallyy do them with lve and from love.",
+    "☁️ Everything you feel is valid, never dare you hide it.ever.i love you , hug, kisses, rain of kisses"
+  ];
+
+  function addMessage(text, type="cloud") {
+    const msg = document.createElement("div");
+    msg.className = `cloudMsg ${type}`;
+    msg.textContent = text;
+    cloudMessages.appendChild(msg);
+    cloudMessages.scrollTop = cloudMessages.scrollHeight;
+  }
+
+  cloudInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const userText = cloudInput.value.trim();
+      if (!userText) return;
+
+      addMessage(userText, "user");
+
+      // pick a gentle response at random
+      const reply = gentleResponses[Math.floor(Math.random() * gentleResponses.length)];
+      addMessage(reply, "cloud");
+
+      cloudInput.value = "";
+    }
+  });
+
+  // optional: welcome message
+  setTimeout(() => addMessage("☁️ Hello, I'm your Cloud of Thoughts. Share anything, I'm listening i love you more than your mom does, actually fuck your mom you are my child."), 1000);
+</script>
+
