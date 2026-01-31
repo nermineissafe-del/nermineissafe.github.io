@@ -296,54 +296,119 @@ for (let row = 0; row < 8; row++) {
   });
 })();
 </script>
-<!-- ===== GENTLE GROUNDING TREE ===== -->
-<div style="margin-top:60px; padding:20px; max-width:520px; background:#fff7ef; border:1px solid #c9a98b; font-family:'Courier New', monospace;">
-  <div id="groundChat" style="min-height:120px; margin-bottom:10px;"></div>
-  <input id="groundInput" placeholder="You can write anything… press Enter"
-         style="width:100%; padding:8px; border:1px solid #c9a98b;"/>
+<!-- ================== TREE CHAT ================== -->
+<div id="treeChat">
+  <div id="treeMessages"></div>
+  <input type="text" id="treeInput" placeholder="Type your answer and press Enter...">
 </div>
 
-<script>
-(function(){
-  const box = document.getElementById("groundChat");
-  const input = document.getElementById("groundInput");
-
-  const prompts = [
-    "🌳 I’m here. What feels heavy right now?",
-    "🌳 You don’t need to be strong. What do you need?",
-    "🌳 Breathe once with me. What do you notice?",
-    "🌳 You’re allowed to rest. What would comfort you?",
-    "🌳 You survived a lot. What kept you going today?"
-  ];
-
-  const replies = [
-    "🌳 Thank you for saying that. I hear you.",
-    "🌳 That makes sense. You’re not wrong for feeling this.",
-    "🌳 You’re doing your best with what you were given.",
-    "🌳 You are not broken. You were hurt.",
-    "🌳 Stay. The world is gentler with you in it."
-  ];
-
-  function say(text){
-    box.innerHTML += `<div style="margin-bottom:6px;">${text}</div>`;
-    box.scrollTop = box.scrollHeight;
+<style>
+  #treeChat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    background: #2b1f1c; /* warm dark brown */
+    color: #f5e6c8;      /* soft cream text */
+    border: 2px solid #8b6f47;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    overflow-y: auto;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    z-index: 9999;
   }
 
-  function random(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  #treeMessages {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
 
-  say(random(prompts));
+  #treeInput {
+    margin-top: 6px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #8b6f47;
+    width: 100%;
+    box-sizing: border-box;
+    background: #3a2b27;
+    color: #f5e6c8;
+  }
 
-  input.addEventListener("keydown", e=>{
-    if(e.key === "Enter"){
+  .treeMsg {
+    margin-bottom: 6px;
+  }
+
+  .treeMsg.tree { color: #a3d9a5; } /* tree messages in soft green */
+  .treeMsg.user { color: #f5e6c8; } /* user answers in cream */
+</style>
+
+<script>
+  const treeMessages = document.getElementById("treeMessages");
+  const treeInput = document.getElementById("treeInput");
+
+  const questions = [
+    {
+      q: "Who are you?",
+      answers: {
+        default: "You are air, you have dreams, which makes anything possible. 🌬️ Smile. You are not in a prison."
+      }
+    },
+    {
+      q: "Did you wash your face, breathe cold air, and drink water?",
+      answers: {
+        yes: "I love you 💚 You're doing so great! Remember, every time you waste in loving your body, your body will waste things for you back.",
+        no: "Oh baby, it's ok. Nothing is more important than air. You are everything here, even if disconnection makes it seem otherwise. Let's go and love you now."
+      }
+    },
+    {
+      q: "Are you stressed?",
+      answers: {
+        yes: "Hey baby, it's all alright. You are loved. You give love. You are always trying. You're the best. You are sick, you have been severely abused, and you have been so tired — that's sad, not shameful. You don't deserve more than that pain. Would you understand if it was a member of your family passing through this?",
+        no: "Well, you deserve it. Remember, if you don't love yourself, you will never love anyone or anything like they deserve to be loved. You are not perfect — accept both majuscule and minuscule here."
+      }
+    }
+  ];
+
+  function addMessage(text, type="tree") {
+    const msg = document.createElement("div");
+    msg.className = `treeMsg ${type}`;
+    msg.textContent = text;
+    treeMessages.appendChild(msg);
+    treeMessages.scrollTop = treeMessages.scrollHeight;
+  }
+
+  function askRandomQuestion() {
+    const q = questions[Math.floor(Math.random() * questions.length)];
+    return q;
+  }
+
+  let currentQuestion = askRandomQuestion();
+  addMessage("🌳 " + currentQuestion.q);
+
+  treeInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
       e.preventDefault();
-      const v = input.value.trim();
-      if(!v) return;
-      say("📝 " + v);
-      say(random(replies));
-      say(random(prompts));
-      input.value = "";
+      const userAnswer = treeInput.value.trim();
+      if (!userAnswer) return;
+
+      addMessage(userAnswer, "user");
+
+      // determine reply
+      let reply = currentQuestion.answers[userAnswer.toLowerCase()] || currentQuestion.answers.default || "I see…";
+      addMessage("🌳 " + reply);
+
+      // pick a new random question next
+      currentQuestion = askRandomQuestion();
+      setTimeout(() => addMessage("🌳 " + currentQuestion.q), 800);
+
+      treeInput.value = "";
     }
   });
-})();
 </script>
-
