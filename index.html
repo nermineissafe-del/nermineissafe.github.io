@@ -559,6 +559,56 @@ bearInput.addEventListener("keydown", async (e) => {
   }
 });
 </script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// ===== FIREBASE CONFIG =====
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT",
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ===== BEAR TABLE =====
+const bearInput = document.getElementById('bearInput');
+const feelingsBody = document.getElementById('feelingsBody');
+const feelingsCol = collection(db, "bearFeelings");
+
+// Listen for existing and new rows
+const q = query(feelingsCol, orderBy("timestamp"));
+onSnapshot(q, snapshot => {
+  feelingsBody.innerHTML = ""; // clear table
+  snapshot.forEach(docSnap => {
+    const data = docSnap.data();
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${data.year}</td><td>${data.time}</td><td>${data.text}</td>`;
+    feelingsBody.appendChild(tr);
+  });
+});
+
+// Add new row on Enter automatically
+bearInput.addEventListener("keydown", async (e) => {
+  if(e.key === "Enter") {
+    e.preventDefault();
+    const text = bearInput.value.trim();
+    if(!text) return;
+
+    const now = new Date();
+    await addDoc(feelingsCol, {
+      year: now.getFullYear(),
+      time: now.toTimeString().split(" ")[0],
+      text: text,
+      timestamp: now
+    });
+
+    bearInput.value = ""; // clear input
+  }
+});
+</script>
+
 
 
 
