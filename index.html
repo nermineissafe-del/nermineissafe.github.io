@@ -296,3 +296,54 @@ for (let row = 0; row < 8; row++) {
   });
 })();
 </script>
+<!-- ===== GENTLE GROUNDING TREE ===== -->
+<div style="margin-top:60px; padding:20px; max-width:520px; background:#fff7ef; border:1px solid #c9a98b; font-family:'Courier New', monospace;">
+  <div id="groundChat" style="min-height:120px; margin-bottom:10px;"></div>
+  <input id="groundInput" placeholder="You can write anything… press Enter"
+         style="width:100%; padding:8px; border:1px solid #c9a98b;"/>
+</div>
+
+<script>
+(function(){
+  const box = document.getElementById("groundChat");
+  const input = document.getElementById("groundInput");
+
+  const prompts = [
+    "🌳 I’m here. What feels heavy right now?",
+    "🌳 You don’t need to be strong. What do you need?",
+    "🌳 Breathe once with me. What do you notice?",
+    "🌳 You’re allowed to rest. What would comfort you?",
+    "🌳 You survived a lot. What kept you going today?"
+  ];
+
+  const replies = [
+    "🌳 Thank you for saying that. I hear you.",
+    "🌳 That makes sense. You’re not wrong for feeling this.",
+    "🌳 You’re doing your best with what you were given.",
+    "🌳 You are not broken. You were hurt.",
+    "🌳 Stay. The world is gentler with you in it."
+  ];
+
+  function say(text){
+    box.innerHTML += `<div style="margin-bottom:6px;">${text}</div>`;
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function random(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  say(random(prompts));
+
+  input.addEventListener("keydown", e=>{
+    if(e.key === "Enter"){
+      e.preventDefault();
+      const v = input.value.trim();
+      if(!v) return;
+      say("📝 " + v);
+      say(random(replies));
+      say(random(prompts));
+      input.value = "";
+    }
+  });
+})();
+</script>
+
