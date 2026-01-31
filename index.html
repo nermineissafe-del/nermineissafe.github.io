@@ -87,16 +87,16 @@ body::before {
 <div id="eyeRight" class="eye" data-text="stay here.">☉</div>
 
 <h1>My Creepy Knowledge Archive</h1>
-<p>This void holds what bleeds out: disgust at rigid systems, the weight of pretending, the slow fade when reality slips. Built to fight disconnection, one red pulse at a time.</p>
+<p>i wanted to make this an archive for studying hoever being a void i had to fill it will feelings mosst of them were: disgust at rigid systems, the weight of pretending, the slow fade when reality slips. Built to fight disconnection, one red pulse at a time.</p>
 
-<button id="playMusicBtn">click for endless loop</button>
+<button id="playMusicBtn">play me</button>
 <iframe id="ytPlayer" width="0" height="0" src="https://www.youtube.com/embed/v1WLeOsAA_Q?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" style="display:none;"></iframe>
 
-<div class="surprise-box" id="surprise"></div>
+<div class="surprise" id="surprise"></div>
 
 <hr>
 <h2>Physics</h2>
-<p>I hate how fake it feels Forced rules, hurtful silence, obedience. Sitting with a pen feels like drowning in distortion. Time turns to lead. Nothing real.</p>
+<p>I hate how fake it feels Forced rules, hurtful silence, obedience. Sitting with a pen feels like drowning in distortion. Time turns to lead. Nothing real.i hate pretending to be a good girl good student good human i am a sick inperfect mess and that's alright because i am beautiful </p>
 <div class="decor-cluster">
   <img class="decor-thumb" src="https://i.pinimg.com/736x/81/80/b4/8180b46b85e7447d22e3318970cabbb6.jpg">
   <img class="decor-thumb" src="https://i.pinimg.com/1200x/d4/6c/b3/d46cb34f69b351e3b62dd8267a5348b0.jpg">
@@ -106,23 +106,23 @@ body::before {
 <hr>
 <div id="spill-prompt">
   <h2>Diary · Love · Survival · All of It</h2>
-  <p>No boxes left—GitHub devours them on refresh.</p>
-  <p>Type it here instead. Ugly truths, wet thoughts, whatever claws out. I’ll catch it, twist it, make it hurt good so you feel every word in your skin.</p>
+  <p>fuck schedules plans time dump toxic friends boring demanding teachers fuck ass annoying exams </p>
+  <p> Ugly truths or wet thoughts?i let my stomach decides, whatever either ways i will feel fucked afterwards ,my big question now it, should i twist it,the miserable life of mine ,or accept it and live in tears sadness silence,or perhaps , i should make it hurt good </p>
 </div>
 
 <hr>
-<h2>Time That Loved Me</h2>
+<h2>Time That actually Loved Me back</h2>
 <div id="timeShrine">
   <div id="darkClock"></div>
   <div id="loveTimerBox">
-    <p>Seconds claimed: breathing, feeling, staying.</p>
+    <p>Seconds i pass breathing, loving, playing computer games, looking (not forcing myself into a 2D paper)after all its also time wasted...</p>
     <p id="loveTime">00:00:00</p>
     <button onclick="toggleLoveTime()">start / stop</button>
   </div>
 </div>
 
 <div id="chess-section">
-  <h2>Tiny Chess – Breathe Through Moves</h2>
+  <h2>Tiny Chess – Breathe Through it</h2>
   <div id="chess-board"></div>
   <p style="margin-top:15px; font-size:0.95em; color:#888;">Stare. Imagine one move. Come back to fingers, breath, here.</p>
 </div>
@@ -134,7 +134,7 @@ const player = document.getElementById('ytPlayer');
 btn.onclick = () => {
   if (!player.src.includes("autoplay")) {
     player.src += "&autoplay=1&loop=1&playlist=v1WLeOsAA_Q";
-    btn.innerText = "LOOP RUNNING – 10HR INSTALL VIBES";
+    btn.innerText = "shhh do not cry";
     btn.disabled = true;
     setTimeout(() => { player.style.display = "none"; }, 3000);
   }
@@ -245,10 +245,17 @@ for (let row = 0; row < 8; row++) {
       }
     },
     {
-      q: "Are you stressed?",
+      q: "Did you wash your face, breathe cold air, and drink water?",
       replies: {
-        yes: "Hey baby, it's all alright. You are loved. You give love. You are always trying your best. You are sick. You have been severely abused and exhausted. That is sad, not shameful. You don't deserve more than that pain. Would you understand if it were a member of your family going through this?",
-        no: "Well, you deserve it. Remember, if you don't love yourself, you will never love anyone or anything as they deserve to be loved. You are not perfect, accept both majuscule and minuscule here."
+        yes: "I love you. You're doing so great. Remember, every time you invest in loving your body, your body will return it.",
+        no: "Oh baby, it's okay. Nothing is more important than air, and you are everything here, even if disconnection makes it seem otherwise. Let's go and love you now."
+      }
+    },
+    {
+      q: "Are you scared?",
+      replies: {
+        yes: "ow little baby,if you feel scared it's valid. but never forget how you scared the shit out of them when they buillied you in streets , how you burned them 'parents' when they mess with you how you amways stand for whom you love yo are so powerfull and loving you can and should feel safe with you ."
+        no: "well..good girl , you little pretty monster."
       }
     }
   ];
