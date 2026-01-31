@@ -3,313 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <title>My Creepy Knowledge Archive</title>
+
 <style>
 body {
   font-family: 'Courier New', monospace;
   background-color: #ffc0cb;
   color: #1a1a1a;
-  margin: 0;
+  margin: 0 auto;
   padding: 40px;
-  max-width: 1000px;
-  line-height: 1.7;
+  max-width: 900px;
+  line-height: 1.8;
   position: relative;
   overflow-x: hidden;
-  perspective: 1000px;
 }
-h1 {
-  text-align: center;
-  font-size: 3em;
-  color: #660033;
-  margin-bottom: 20px;
-  border-bottom: 3px solid #660033;
-  padding-bottom: 10px;
-}
-h2 {
-  color: #330011;
-  border-left: 6px solid #660033;
-  padding-left: 15px;
-  margin-top: 50px;
-}
-p {
-  margin-top: 15px;
-  white-space: pre-line;
-}
-hr {
-  margin: 40px 0;
-  border-top: 2px dashed #660033;
-}
-.decor-cluster {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin: 15px 0;
-}
-.decor-thumb {
-  width: 120px;
-  height: auto;
-  border-radius: 6px;
-  border: 1px solid #660033;
-  opacity: 0.85;
-}
-#musicControls {
-  text-align: center;
-  margin: 20px 0;
-}
-.vintage-btn {
-  font-family: 'Courier New', monospace;
-  font-size: 1.2em;
-  padding: 12px 30px;
-  margin: 0 10px;
-  background: linear-gradient(#d0d0d0, #a0a0a0);
-  color: #000;
-  border: 4px outset #808080;
-  border-radius: 0;
-  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.4), 3px 3px 8px rgba(0,0,0,0.6), inset -2px -2px 5px rgba(255,255,255,0.3);
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.9;
-  transition: all 0.1s;
-}
-.vintage-btn:active {
-  border-style: inset;
-  box-shadow: inset 3px 3px 6px rgba(0,0,0,0.6), inset -2px -2px 4px rgba(255,255,255,0.2);
-  transform: translate(2px, 2px);
-}
-.vintage-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-#playMusicBtn {
-  display: block;
-  margin: 30px auto;
-  padding: 15px 50px;
-  font-size: 1.4em;
-  background: #000;
-  color: #ffc0cb;
-  border: 3px solid #660033;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 15px #66003366;
-}
+
+/* old screen overlay */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(rgba(0,0,0,0.04) 0 1px, transparent 1px 2px),
-              repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 2px);
-  mix-blend-mode: multiply;
+  background:
+    repeating-linear-gradient(
+      rgba(0,0,0,0.05) 0 1px,
+      transparent 1px 2px
+    );
   pointer-events: none;
+  mix-blend-mode: multiply;
   z-index: 999;
 }
+
+h1 {
+  text-align: center;
+  font-size: 3em;
+  color: #660033;
+  border-bottom: 3px solid #660033;
+  padding-bottom: 15px;
+}
+
+h2 {
+  margin-top: 60px;
+  padding-left: 15px;
+  border-left: 6px solid #660033;
+  color: #330011;
+}
+
+p {
+  white-space: pre-line;
+  margin-top: 20px;
+}
+
+hr {
+  margin: 50px 0;
+  border-top: 2px dashed #660033;
+}
+
+/* buttons */
+.controls {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.vintage-btn {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1em;
+  padding: 12px 30px;
+  margin: 5px;
+  background: #111;
+  color: #ffc0cb;
+  border: 3px outset #660033;
+  cursor: pointer;
+}
+
+.vintage-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* fish canvas */
 .fish-container {
   position: fixed;
   inset: 0;
   pointer-events: auto;
-  z-index: 5;
-  overflow: hidden;
-  perspective: 1200px;
-  cursor: pointer;
+  z-index: 2;
 }
-#fishCanvas {
-  position: absolute;
-  inset: 0;
+
+canvas {
   width: 100%;
   height: 100%;
 }
 </style>
 </head>
+
 <body>
 
-<div class="fish-container" id="fishContainer">
+<div class="fish-container">
   <canvas id="fishCanvas"></canvas>
 </div>
 
 <h1>My Creepy Knowledge Archive</h1>
 
-<p>This is where I store what I see, feel, think, hear, smell.</p>
+<p>
+This is where I store what I see,
+feel,
+think,
+hear,
+smell.
+</p>
 
-<div id="musicControls">
-  <button id="playMusicBtn" class="vintage-btn">PLAY MUSIC</button>
+<div class="controls">
+  <button id="playMusicBtn" class="vintage-btn">PLAY</button>
   <button id="stopMusicBtn" class="vintage-btn" disabled>STOP</button>
   <button id="resumeMusicBtn" class="vintage-btn" disabled>RESUME</button>
 </div>
 
-<iframe id="ytPlayer" width="0" height="0" src="https://www.youtube.com/embed/nZOrhNlbFHc?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" style="display:none;"></iframe>
-
 <hr>
 
 <h2>Physics</h2>
-<p>I hate it so much. I've always felt that it is fake, not true, edited… a lie.</p>
-<div class="decor-cluster">
-  <img class="decor-thumb" src="https://i.pinimg.com/736x/81/80/b4/8180b46b85e7447d22e3318970cabbb6.jpg">
-  <img class="decor-thumb" src="https://i.pinimg.com/1200x/d4/6c/b3/d46cb34f69b351e3b62dd8267a5348b0.jpg">
-  <img class="decor-thumb" src="https://i.pinimg.com/736x/71/b5/45/71b54536f8aa38a1100d12406551ad7a.jpg">
-</div>
+<p>
+i hate it so much.
+i’ve always felt it was fake,
+edited,
+a lie.
+</p>
 
 <hr>
 
 <h2>My Psychology</h2>
-<p>I usually spend 99% of the time living with zero consciousness…</p>
-<div class="decor-cluster">
-  <img class="decor-thumb" src="https://i.pinimg.com/736x/e8/47/4f/e8474f64812c6386f5b7789f9c718f5f.jpg">
-  <img class="decor-thumb" src="https://i.pinimg.com/736x/b5/d6/48/b5d648d949f13533a2aad611faf5cc39.jpg">
-  <img class="decor-thumb" src="https://i.pinimg.com/736x/82/eb/8f/82eb8f80ea9bbb71ac56abcccbca548f.jpg">
-</div>
+<p>
+i usually live with zero consciousness.
+i feel sad.
+i feel scared.
+i feel disconnected.
+</p>
 
 <hr>
 
-<h2>My DS and Studies</h2>
-<p>I AM NOT PERFECT. I AM A HORRIBLE SAD MESS.</p>
-<div class="decor-cluster">
-  <img class="decor-thumb" src="https://i.pinimg.com/736x/f9/ea/3b/f9ea3b6c7d4056fdacee98623ae9c673.jpg">
-  <img class="decor-thumb" src="https://i.pinimg.com/736x/85/67/1b/85671bf0af96745f2d4c2b0ac47efd2c.jpg">
-</div>
+<h2>Studies</h2>
+<p>
+I AM NOT PERFECT.
+I AM A SAD MESS.
+AND THAT IS REAL.
+</p>
+
+<!-- YOUTUBE PLAYER -->
+<div id="player"></div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-// Music controls unchanged...
+let player;
 
-// === Fish → Tiny Glittering Red Heart Explosion → Respawn ===
-const canvas = document.getElementById('fishCanvas');
-const ctx = canvas.getContext('2d');
-const container = document.getElementById('fishContainer');
+function onYouTubeIframeAPIReady() {
+  player = new YT.Pl
 
-let width, height;
-function resize() {
-  width = canvas.width = container.clientWidth;
-  height = canvas.height = container.clientHeight;
-}
-window.addEventListener('resize', resize);
-resize();
-
-let particles = [];
-let exploded = false;
-let respawnTimer = null;
-
-class GlitterHeart {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.size = Math.random() * 6 + 3; // small & sharp
-    this.speedX = Math.random() * 12 - 6;
-    this.speedY = Math.random() * 12 - 6;
-    this.rotation = Math.random() * Math.PI * 2;
-    this.rotSpeed = Math.random() * 0.15 - 0.075;
-    this.alpha = 1;
-    this.life = 50 + Math.random() * 30; // faster fade
-  }
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    this.rotation += this.rotSpeed;
-    this.alpha -= 0.025; // quicker vanish
-    this.life--;
-  }
-  draw() {
-    ctx.save();
-    ctx.globalAlpha = this.alpha;
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = '#ff0000'; // red glow for glitter sparkle
-    ctx.fillStyle = '#ff0000'; // pure blood red
-    ctx.translate(this.x, this.y);
-    ctx.rotate(this.rotation);
-    ctx.scale(this.size/10, this.size/10);
-    // Tiny stylized heart shape
-    ctx.beginPath();
-    ctx.moveTo(0, -5);
-    ctx.bezierCurveTo(5, -10, 10, -3, 0, 5);
-    ctx.bezierCurveTo(-10, -3, -5, -10, 0, -5);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
-  }
-}
-
-function drawFish() {
-  if (exploded) return;
-  ctx.clearRect(0, 0, width, height);
-
-  const t = Date.now() * 0.0005;
-  const fx = width * 0.5 + Math.sin(t) * 100;
-  const fy = height * 0.5 + Math.cos(t * 1.3) * 80;
-
-  ctx.save();
-  ctx.translate(fx, fy);
-  ctx.rotate(Math.sin(t * 2) * 0.3);
-
-  ctx.fillStyle = '#0a0a0a';
-  ctx.beginPath();
-  ctx.ellipse(0, 0, 40, 20, 0, 0, Math.PI*2);
-  ctx.fill();
-
-  ctx.fillStyle = '#111';
-  ctx.beginPath();
-  ctx.moveTo(-40, 0);
-  ctx.lineTo(-60, -15);
-  ctx.lineTo(-60, 15);
-  ctx.closePath();
-  ctx.fill();
-
-  ctx.fillStyle = '#cc0000';
-  ctx.beginPath();
-  ctx.arc(20, -5, 5, 0, Math.PI*2);
-  ctx.fill();
-
-  ctx.restore();
-}
-
-function animate() {
-  ctx.clearRect(0, 0, width, height);
-
-  if (!exploded) {
-    drawFish();
-  } else {
-    particles.forEach((p, i) => {
-      p.update();
-      p.draw();
-      if (p.life <= 0 || p.alpha <= 0) particles.splice(i, 1);
-    });
-
-    if (particles.length === 0 && !respawnTimer) {
-      respawnTimer = setTimeout(() => {
-        exploded = false;
-        particles = [];
-        respawnTimer = null;
-      }, 4000); // shorter wait, back faster
-    }
-  }
-
-  requestAnimationFrame(animate);
-}
-animate();
-
-// Click to explode into tiny red glitter hearts
-container.addEventListener('click', (e) => {
-  if (exploded) return;
-  exploded = true;
-
-  const rect = container.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
-  const clickY = e.clientY - rect.top;
-
-  // More particles for denser glitter burst
-  for (let i = 0; i < 100; i++) {
-    particles.push(new GlitterHeart(clickX, clickY));
-  }
-
-  // Sharp white flash
-  ctx.globalAlpha = 0.4;
-  ctx.fillStyle = '#fff';
-  ctx.beginPath();
-  ctx.arc(clickX, clickY, 50, 0, Math.PI*2);
-  ctx.fill();
-  setTimeout(() => { ctx.globalAlpha = 1; }, 50);
-});
-</script>
-
-</body>
-</html>
 
 
 
