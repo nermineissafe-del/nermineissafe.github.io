@@ -216,13 +216,8 @@ for (let row = 0; row < 8; row++) {
 </script>
 </body>
 </html>
-<!-- ===== PUMPKIN DUCK CHAT ===== -->
-<div id="pumpkinDuckChat" style="margin-top:50px; padding:20px; border:2px solid #660033; background:#f5e6c8; display:flex; flex-direction:column; align-items:center; box-shadow:0 10px 25px rgba(0,0,0,.3);">
-
-  <div style="display:flex; gap:20px; align-items:center; margin-bottom:20px;">
-    <img src="https://static.wikia.nocookie.net/over-the-garden-wall/images/9/91/PumpkinHead.png" style="width:120px; height:auto;" alt="Pumpkin">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Mallard_duckling.jpg/220px-Mallard_duckling.jpg" style="width:100px; height:auto;" alt="Duck">
-  </div>
+<!-- ===== GENTLE TREE CHAT ===== -->
+<div id="treeChat" style="margin-top:50px; padding:20px; border:2px solid #660033; background:#f5e6c8; display:flex; flex-direction:column; align-items:center; box-shadow:0 10px 25px rgba(0,0,0,.3);">
 
   <div id="chatBox" style="width:100%; max-width:500px;">
     <div id="chatMessages" style="min-height:120px; padding:10px; border:1px solid #8b6f47; background:#fff; overflow-y:auto; margin-bottom:10px; font-family:'Courier New', monospace;"></div>
@@ -287,7 +282,7 @@ for (let row = 0; row < 8; row++) {
       if(!answer) return;
       chatMessages.innerHTML += `<div style="color:#000;">📝 ${answer}</div>`;
       let reply = currentQ.replies.default || currentQ.replies[answer] || currentQ.replies['no'] || currentQ.replies['yes'];
-      chatMessages.innerHTML += `<div style="color:#008000;">🤖 ${reply}</div>`;
+      chatMessages.innerHTML += `<div style="color:#008000;">🌳 ${reply}</div>`;
       chatMessages.scrollTop = chatMessages.scrollHeight;
       chatInput.value = "";
       currentQ = askQuestion();
@@ -295,4 +290,3 @@ for (let row = 0; row < 8; row++) {
   });
 })();
 </script>
-
