@@ -608,90 +608,262 @@ bearInput.addEventListener("keydown", async (e) => {
   }
 });
 </script>
-<!-- ===== PERMANENT NOTES (FOREVER) ===== -->
-<div id="foreverBox" style="
-  margin-top:40px;
-  padding:20px;
-  border:2px solid #660033;
-  background:#111;
-  color:#ffc0cb;
-">
-  <h2>Forever Notes</h2>
-  <input id="foreverInput" placeholder="write anything and press Enter"
-    style="width:100%;padding:10px;margin-bottom:10px;">
-  <table style="width:100%;border-collapse:collapse;">
-    <thead>
-      <tr><th>Time</th><th>Note</th></tr>
-    </thead>
-    <tbody id="foreverBody"></tbody>
-  </table>
+<script>
+const messages = [
+  "Hey. You’re still here. That matters.",
+  "You don’t have to fix everything today.",
+  "I know you’re tired. You’re allowed to be.",
+  "Nothing is wrong with you for feeling this way.",
+  "Breathe. Just one slow breath.",
+  "You are not broken — you’re overwhelmed.",
+  "It’s okay if today is heavy.",
+  "You’re allowed to rest.",
+  "I’m glad you opened this page."
+];
+
+// gentle popup when page loads
+setTimeout(() => {
+  alert(messages[Math.floor(Math.random() * messages.length)]);
+}, 1500);
+
+// quiet check-in every 10 minutes
+setInterval(() => {
+  console.log("💗", messages[Math.floor(Math.random() * messages.length)]);
+}, 600000);
+</script>
+<style>
+#voidPing {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #660033;
+  opacity: 0.35;
+  pointer-events: none;
+  transition: opacity 1.5s;
+}
+
+#breathDot {
+  position: fixed;
+  bottom: 20px;
+  left: 24px;
+  width: 10px;
+  height: 10px;
+  background: #660033;
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%   { transform: scale(1); opacity: 0.3; }
+  50%  { transform: scale(1.8); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 0.3; }
+}
+</style>
+
+<div id="voidPing"></div>
+<div id="breathDot"></div>
+
+<script>
+const lines = [
+  "still online.",
+  "signal received.",
+  "nothing urgent.",
+  "you can stay.",
+  "no task required.",
+  "system idle.",
+  "breathing detected.",
+  "time is slow here.",
+  "no expectations.",
+  "presence acknowledged."
+];
+
+const ping = document.getElementById("voidPing");
+
+// soft message on load
+setTimeout(() => {
+  ping.innerText = lines[Math.floor(Math.random()*lines.length)];
+  ping.style.opacity = 0.6;
+}, 1200);
+
+// fade it away
+setTimeout(() => {
+  ping.style.opacity = 0.15;
+}, 6000);
+
+// occasional quiet ping (every ~12 min)
+setInterval(() => {
+  ping.innerText = lines[Math.floor(Math.random()*lines.length)];
+  ping.style.opacity = 0.5;
+  setTimeout(()=> ping.style.opacity = 0.15, 5000);
+}, 720000);
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Calm Chess Puzzles</title>
+<style>
+  body {
+    background:#0e0e11; color:#e6e6eb; font-family:system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0;
+  }
+  .wrap{max-width:820px; width:100%; padding:24px;}
+  h1{font-size:22px; font-weight:600; margin:0 0 10px;}
+  p{opacity:.85; margin:6px 0 16px;}
+  .panel{display:grid; grid-template-columns:320px 1fr; gap:20px;}
+  .board{width:320px; height:320px; display:grid; grid-template-columns:repeat(8,1fr); border-radius:10px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .sq{display:flex; align-items:center; justify-content:center; font-size:36px; cursor:pointer; user-select:none}
+  .dark{background:#3b4252}
+  .light{background:#e5e9f0}
+  .sq.sel{outline:3px solid #88c0d0; z-index:2}
+  .sq.hint{box-shadow: inset 0 0 0 4px rgba(136,192,208,.6)}
+  .side{background:#14141a; border-radius:12px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .btn{background:#2e3440; color:#e6e6eb; border:0; padding:10px 14px; border-radius:10px; cursor:pointer}
+  .btn.primary{background:#88c0d0; color:#0e0e11}
+  .row{display:flex; gap:10px; flex-wrap:wrap}
+  .msg{margin-top:10px; min-height:22px}
+  .tiny{font-size:12px; opacity:.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Quiet Chess — Tactical Puzzles</h1>
+  <p>A small, calm chess puzzle trainer. No clock. No pressure. Click <b>Start</b>, then find the tactic.</p>
+
+  <div class="panel">
+    <div class="board" id="board"></div>
+    <div class="side">
+      <div class="row">
+        <button class="btn primary" id="start">Start</button>
+        <button class="btn" id="hint">Hint</button>
+        <button class="btn" id="next">Next</button>
+      </div>
+      <div class="msg" id="msg"></div>
+      <p class="tiny" id="desc"></p>
+      <p class="tiny">Tip: Most puzzles here are classic ideas: forks, pins, mates.</p>
+    </div>
+  </div>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  onSnapshot,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<script>
+// Unicode pieces
+const U = { K:'♔', Q:'♕', R:'♖', B:'♗', N:'♘', P:'♙', k:'♚', q:'♛', r:'♜', b:'♝', n:'♞', p:'♟' };
 
-/* 🔥 PUT YOUR REAL FIREBASE CONFIG HERE 🔥 */
-const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const input = document.getElementById("foreverInput");
-const body = document.getElementById("foreverBody");
-const notes = collection(db, "foreverNotes");
-
-/* LOAD EVERYTHING EVER WRITTEN */
-const q = query(notes, orderBy("created"));
-onSnapshot(q, snap => {
-  body.innerHTML = "";
-  snap.forEach(d => {
-    const n = d.data();
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${new Date(n.created?.seconds*1000).toLocaleString()}</td><td>${n.text}</td>`;
-    body.appendChild(tr);
-  });
-});
-
-/* SAVE AUTOMATICALLY ON ENTER */
-input.addEventListener("keydown", async e => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    if (!input.value.trim()) return;
-    await addDoc(notes, {
-      text: input.value,
-      created: serverTimestamp()
-    });
-    input.value = "";
+// Very small puzzle set (white to move)
+// board is 8 strings from rank 8 to 1
+const PUZZLES = [
+  {
+    name: 'Knight Fork',
+    desc: 'White to move. Find the knight fork that wins material.',
+    board: [
+      'r1bqkbnr',
+      'pppp1ppp',
+      '2n5',
+      '4p3',
+      '2B1P3',
+      '5N2',
+      'PPPP1PPP',
+      'RNBQK2R'
+    ],
+    solution: { from:'f3', to:'e5' },
+    hint:'Look for a knight jump that attacks two valuable pieces.'
+  },
+  {
+    name: 'Back Rank Mate',
+    desc: 'White to move. A simple back-rank theme.',
+    board: [
+      '6k1',
+      '5ppp',
+      '8',
+      '8',
+      '8',
+      '8',
+      '5PPP',
+      '5RK1'
+    ],
+    solution: { from:'f1', to:'e1' }, // quiet move first (zugzwang style)
+    hint:'Improve the rook and restrict the king.'
+  },
+  {
+    name: 'Mate in One',
+    desc: 'White to move. Find mate in one.',
+    board: [
+      '7k',
+      '6pp',
+      '8',
+      '8',
+      '8',
+      '8',
+      '6PP',
+      '6RK'
+    ],
+    solution: { from:'g1', to:'g8' },
+    hint:'A rook can do it immediately.'
   }
-});
+];
+
+const boardEl = document.getElementById('board');
+const msg = document.getElementById('msg');
+const desc = document.getElementById('desc');
+let cur = 0;
+let pos = [];
+let selected = null;
+
+function algebra(i,j){ return String.fromCharCode(97+j)+(8-i); }
+
+function loadPuzzle(i){
+  cur = i % PUZZLES.length;
+  pos = PUZZLES[cur].board.map(r=>r.split(''));
+  selected = null;
+  draw();
+  msg.textContent = 'Puzzle: '+PUZZLES[cur].name;
+  desc.textContent = PUZZLES[cur].desc;
+}
+
+function draw(){
+  boardEl.innerHTML='';
+  for(let i=0;i<8;i++){
+    for(let j=0;j<8;j++){
+      const sq = document.createElement('div');
+      sq.className = 'sq ' + ((i+j)%2?'dark':'light');
+      const p = pos[i][j];
+      if(p!=='.') sq.textContent = U[p]||'';
+      sq.dataset.i=i; sq.dataset.j=j;
+      if(selected && selected.i==i && selected.j==j) sq.classList.add('sel');
+      sq.onclick = ()=>clickSq(i,j);
+      boardEl.appendChild(sq);
+    }
+  }
+}
+
+function clickSq(i,j){
+  const p = pos[i][j];
+  if(!selected){ if(p && p!=='.' && p===p.toUpperCase()){ selected={i,j}; draw(); } return; }
+  const from = algebra(selected.i, selected.j);
+  const to = algebra(i,j);
+  const sol = PUZZLES[cur].solution;
+  if(from===sol.from && to===sol.to){
+    pos[i][j]=pos[selected.i][selected.j]; pos[selected.i][selected.j]='.';
+    selected=null; draw();
+    msg.textContent='✓ Correct. Take a breath.';
+  } else {
+    selected=null; draw();
+    msg.textContent='Not quite. Try again.';
+  }
+}
+
+// controls
+start.onclick = ()=>loadPuzzle(cur);
+hint.onclick = ()=>msg.textContent='Hint: '+PUZZLES[cur].hint;
+next.onclick = ()=>loadPuzzle(cur+1);
+
+// initial
+loadPuzzle(0);
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</body>
+</html>
 
 
