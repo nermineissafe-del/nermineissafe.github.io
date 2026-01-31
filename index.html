@@ -299,7 +299,193 @@ body::before {
 }
 
 #bearBox {
-  margin-top: 4
+  margin-top: 40px;
+  border: 2px solid #660033;
+  padding: 20px;
+  background: #f5e6c8;
+}
+
+#bearInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #8b6f47;
+  border-radius: 6px;
+}
+
+#feelingsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+#feelingsTable th, #feelingsTable td {
+  border: 1px solid #8b6f47;
+  padding: 6px;
+  text-align: left;
+}
+</style>
+</head>
+<body>
+
+<div class="fish-container">
+  <div class="real-fish" style="animation-delay:0s; top:20%;"></div>
+  <div class="real-fish" style="animation-delay:40s; top:50%; transform:scale(0.8);"></div>
+  <div class="real-fish" style="animation-delay:80s; top:70%; transform:scale(1.1);"></div>
+</div>
+
+<div id="sunWatcher">☉</div>
+
+<h1>My Creepy Knowledge Archive</h1>
+
+<p>
+This is where I store what I see, feel, think, hear, smell. I made this to store my study habits which I deeply dislike, but while making it I ended up expressing emotions instead. It made me realize how intense my reactions are, how strong disgust and detachment can become, and how unreal everything sometimes feels.
+</p>
+
+<button id="playMusicBtn">click here</button>
+<iframe id="ytPlayer" width="0" height="0"
+src="https://www.youtube.com/embed/nZOrhNlbFHc?enablejsapi=1"
+frameborder="0" allow="autoplay; encrypted-media" style="display:none;"></iframe>
+
+<div class="surprise-box" id="surprise"></div>
+
+<hr>
+
+<h2>Physics</h2>
+<p>
+I hate how fake it feels. I hate pretending. I hate being forced into rigid systems, rules, silence, obedience. I hate how much effort it takes just to sit with a pen. Nothing feels real when I study, and time becomes heavy and distorted.
+</p>
+
+<div class="decor-cluster">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/81/80/b4/8180b46b85e7447d22e3318970cabbb6.jpg">
+  <img class="decor-thumb" src="https://i.pinimg.com/1200x/d4/6c/b3/d46cb34f69b351e3b62dd8267a5348b0.jpg">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/71/b5/45/71b54536f8aa38a1100d12406551ad7a.jpg">
+</div>
+
+<hr>
+
+<h2>Diary</h2>
+<div class="writable" contenteditable="true" id="diaryBox"></div>
+
+<h2>Love / Gentle Things</h2>
+<div class="writable" contenteditable="true" id="loveBox"></div>
+
+<h2>Grounding Notes</h2>
+<div class="writable" contenteditable="true" id="survivalBox"></div>
+
+<hr>
+
+<h2>Time That Loved Me</h2>
+<div id="timeShrine">
+  <div id="darkClock"></div>
+  <div id="loveTimerBox">
+    <p>Time spent loving, breathing, playing, caring.</p>
+    <p id="loveTime">00:00:00</p>
+    <button onclick="toggleLoveTime()">start / stop</button>
+  </div>
+</div>
+
+<div id="wizardBox">
+  <h2>The Wizard Oracle</h2>
+  <p>Ask the wizard a question:</p>
+  <button id="askBtn">ASK</button>
+  <div id="oracleAnswer"></div>
+</div>
+
+<div id="bearBox">
+  <h2>Bear Asks: How are you feeling?</h2>
+  <input type="text" id="bearInput" placeholder="Write your feeling here...">
+  <table id="feelingsTable">
+    <thead>
+      <tr><th>Year</th><th>Time</th><th>Feeling</th></tr>
+    </thead>
+    <tbody id="feelingsBody"></tbody>
+  </table>
+</div>
+
+<script>
+const btn = document.getElementById('playMusicBtn');
+const player = document.getElementById('ytPlayer');
+btn.onclick = () => {
+  if (!player.src.includes("autoplay")) {
+    player.style.display = "block";
+    player.src += "&autoplay=1";
+    btn.innerText = "MUSIC PLAYING";
+    btn.disabled = true;
+  }
+};
+
+const surprise = document.getElementById('surprise');
+surprise.onclick = () => surprise.classList.toggle('open');
+
+function updateClock() {
+  const darkClock = document.getElementById("darkClock");
+  const now = new Date();
+  darkClock.innerText = now.toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+let loveSeconds = 0;
+let loveRunning = false;
+setInterval(() => {
+  if (loveRunning) {
+    loveSeconds++;
+    const h = String(Math.floor(loveSeconds/3600)).padStart(2,'0');
+    const m = String(Math.floor((loveSeconds%3600)/60)).padStart(2,'0');
+    const s = String(loveSeconds%60).padStart(2,'0');
+    document.getElementById("loveTime").innerText = `${h}:${m}:${s}`;
+  }
+}, 1000);
+function toggleLoveTime() { loveRunning = !loveRunning; }
+
+const askBtn = document.getElementById('askBtn');
+const oracleAnswer = document.getElementById('oracleAnswer');
+const answers = ["yes…","no…","maybe…","ask later…","definitely…","not sure…"];
+askBtn.onclick = () => { oracleAnswer.innerText = answers[Math.floor(Math.random()*answers.length)]; };
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, setDoc, onSnapshot, collection, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// ===== FIREBASE CONFIG =====
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT",
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ===== SAVE DIARY / LOVE / SURVIVAL =====
+const boxes = {
+  diaryBox: doc(db,"pages","diary"),
+  loveBox: doc(db,"pages","love"),
+  survivalBox: doc(db,"pages","survival")
+};
+
+Object.keys(boxes).forEach(id => {
+  const el = document.getElementById(id);
+
+  onSnapshot(boxes[id], snap => {
+    if(snap.exists() && el.innerText !== snap.data().text) el.innerText = snap.data().text;
+  });
+
+  el.addEventListener("input", () => setDoc(boxes[id], { text: el.innerText }));
+});
+
+// ===== SAVE BEAR TABLE =====
+const bearInput = document.getElementById('bearInput');
+const feelingsBody = document.getElementById('feelingsBody');
+const feelingsCol = collection(db,"feelings");
+const q = query(feelingsCol, orderBy("timestamp"));
+
+// Listen and update table in real time
+onSnapshot(q, snapshot => {
+  feelingsBody.innerHTML = "";
+  snapshot.forEach(docSnap =>
+
 
 
 
