@@ -216,4 +216,83 @@ for (let row = 0; row < 8; row++) {
 </script>
 </body>
 </html>
+<!-- ===== PUMPKIN DUCK CHAT ===== -->
+<div id="pumpkinDuckChat" style="margin-top:50px; padding:20px; border:2px solid #660033; background:#f5e6c8; display:flex; flex-direction:column; align-items:center; box-shadow:0 10px 25px rgba(0,0,0,.3);">
+
+  <div style="display:flex; gap:20px; align-items:center; margin-bottom:20px;">
+    <img src="https://static.wikia.nocookie.net/over-the-garden-wall/images/9/91/PumpkinHead.png" style="width:120px; height:auto;" alt="Pumpkin">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Mallard_duckling.jpg/220px-Mallard_duckling.jpg" style="width:100px; height:auto;" alt="Duck">
+  </div>
+
+  <div id="chatBox" style="width:100%; max-width:500px;">
+    <div id="chatMessages" style="min-height:120px; padding:10px; border:1px solid #8b6f47; background:#fff; overflow-y:auto; margin-bottom:10px; font-family:'Courier New', monospace;"></div>
+    <input type="text" id="chatInput" placeholder="Type your answer and press Enter" style="width:100%; padding:10px; font-family:'Courier New', monospace;"/>
+  </div>
+</div>
+
+<script>
+(function(){
+  const chatMessages = document.getElementById("chatMessages");
+  const chatInput = document.getElementById("chatInput");
+
+  const questions = [
+    {
+      q: "Who are you?",
+      replies: {
+        default: "You are air, you have dreams, which makes anything possible. Smile, you are not in a prison."
+      }
+    },
+    {
+      q: "Did you wash your face, breathe cold air, and drink water?",
+      replies: {
+        yes: "I love you. You're doing so great. Remember, every time you invest in loving your body, your body will return it.",
+        no: "Oh baby, it's okay. Nothing is more important than air, and you are everything here, even if disconnection makes it seem otherwise. Let's go and love you now."
+      }
+    },
+    {
+      q: "Are you stressed?",
+      replies: {
+        yes: "Hey baby, it's all alright. You are loved. You give love. You are always trying your best. You are sick. You have been severely abused and exhausted. That is sad, not shameful. You don't deserve more than that pain. Would you understand if it were a member of your family going through this?",
+        no: "Well, you deserve it. Remember, if you don't love yourself, you will never love anyone or anything as they deserve to be loved. You are not perfect, accept both majuscule and minuscule here."
+      }
+    }
+  ];
+
+  let pendingQuestions = [];
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  function askQuestion() {
+    if(pendingQuestions.length === 0){
+      pendingQuestions = shuffle([...questions]);
+    }
+    const qObj = pendingQuestions.shift();
+    chatMessages.innerHTML += `<div style="color:#660033;">💬 ${qObj.q}</div>`;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return qObj;
+  }
+
+  let currentQ = askQuestion();
+
+  chatInput.addEventListener("keydown", function(e){
+    if(e.key === "Enter"){
+      e.preventDefault();
+      const answer = chatInput.value.trim().toLowerCase();
+      if(!answer) return;
+      chatMessages.innerHTML += `<div style="color:#000;">📝 ${answer}</div>`;
+      let reply = currentQ.replies.default || currentQ.replies[answer] || currentQ.replies['no'] || currentQ.replies['yes'];
+      chatMessages.innerHTML += `<div style="color:#008000;">🤖 ${reply}</div>`;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      chatInput.value = "";
+      currentQ = askQuestion();
+    }
+  });
+})();
+</script>
 
