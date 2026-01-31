@@ -484,7 +484,33 @@ const q = query(feelingsCol, orderBy("timestamp"));
 // Listen and update table in real time
 onSnapshot(q, snapshot => {
   feelingsBody.innerHTML = "";
-  snapshot.forEach(docSnap =>
+  snapshot.forEach(docSnap => {
+    const data = docSnap.data();
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${data.year}</td><td>${data.time}</td><td>${data.text}</td>`;
+    feelingsBody.appendChild(tr);
+  });
+});
+
+// Add to table and save on Enter
+bearInput.addEventListener("keydown", async (e) => {
+  if(e.key === "Enter") {
+    e.preventDefault();
+    const text = bearInput.value.trim();
+    if(!text) return;
+    const now = new Date();
+    await addDoc(feelingsCol, {
+      year: now.getFullYear(),
+      time: now.toTimeString().split(" ")[0],
+      text: text,
+      timestamp: now
+    });
+    bearInput.value = "";
+  }
+});
+</script>
+</body>
+</html>
 
 
 
