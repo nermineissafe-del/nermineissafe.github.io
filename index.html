@@ -608,6 +608,76 @@ bearInput.addEventListener("keydown", async (e) => {
   }
 });
 </script>
+<!-- ===== PERMANENT NOTES (FOREVER) ===== -->
+<div id="foreverBox" style="
+  margin-top:40px;
+  padding:20px;
+  border:2px solid #660033;
+  background:#111;
+  color:#ffc0cb;
+">
+  <h2>Forever Notes</h2>
+  <input id="foreverInput" placeholder="write anything and press Enter"
+    style="width:100%;padding:10px;margin-bottom:10px;">
+  <table style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr><th>Time</th><th>Note</th></tr>
+    </thead>
+    <tbody id="foreverBody"></tbody>
+  </table>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* 🔥 PUT YOUR REAL FIREBASE CONFIG HERE 🔥 */
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const input = document.getElementById("foreverInput");
+const body = document.getElementById("foreverBody");
+const notes = collection(db, "foreverNotes");
+
+/* LOAD EVERYTHING EVER WRITTEN */
+const q = query(notes, orderBy("created"));
+onSnapshot(q, snap => {
+  body.innerHTML = "";
+  snap.forEach(d => {
+    const n = d.data();
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${new Date(n.created?.seconds*1000).toLocaleString()}</td><td>${n.text}</td>`;
+    body.appendChild(tr);
+  });
+});
+
+/* SAVE AUTOMATICALLY ON ENTER */
+input.addEventListener("keydown", async e => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    if (!input.value.trim()) return;
+    await addDoc(notes, {
+      text: input.value,
+      created: serverTimestamp()
+    });
+    input.value = "";
+  }
+});
+</script>
 
 
 
