@@ -140,8 +140,13 @@ btn.onclick = () => {
   }
 };
 
-// Surprise box - body anchor tips
+<div id="surprise">Click me!</div>
+<div id="tip"></div>
+
+<script>
 const surprise = document.getElementById('surprise');
+const tipDiv = document.getElementById('tip');
+
 const groundingTips = [
   "5-4-3-2-1: Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste. Pull senses back hard.",
   "Stomp your feet: Feel the floor slam up through your heels. Ground gravity into bones. No floating.",
@@ -166,13 +171,14 @@ const groundingTips = [
   "It's okay to touch yourself 🌙💜 feel your body, be kind to it, and enjoy your own presence.",
   "Run cold water over hands/wrists for 30s. Temperature bites, brings skin screaming back online."
 ];
+
 surprise.onclick = () => {
   surprise.classList.toggle('open');
   if (surprise.classList.contains('open')) {
     const tip = groundingTips[Math.floor(Math.random() * groundingTips.length)];
-    surprise.setAttribute('data-quote', tip);
+    tipDiv.textContent = tip; // SHOWS your tip
   } else {
-    surprise.setAttribute('data-quote', '');
+    tipDiv.textContent = ''; // hide tip
   }
 };
 
