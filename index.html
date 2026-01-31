@@ -1,31 +1,213 @@
-/* Vintage overlay for grain & old paper feel */
-body::after {
-  content:"";
-  position:fixed; inset:0;
-  background: url('https://i.ibb.co/9WbqZQ0/old-paper-texture.png'); /* subtle old paper texture */
-  opacity:0.15;
-  pointer-events:none;
-  z-index:1000;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Creepy Knowledge Archive</title>
+<style>
+body {
+  font-family: 'Courier New', monospace;
+  background-color: #ffc0cb;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 40px;
+  max-width: 1000px;
+  line-height: 1.7;
+  position: relative;
+  overflow-x: hidden;
+  perspective: 1000px; /* Global 3D depth for the fish to feel real */
 }
 
-/* Floating vintage pixel ghosts */
-.ghost {
+h1 {
+  text-align: center;
+  font-size: 3em;
+  color: #660033;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #660033;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #330011;
+  border-left: 6px solid #660033;
+  padding-left: 15px;
+  margin-top: 50px;
+}
+
+p {
+  margin-top: 15px;
+  white-space: pre-line;
+}
+
+hr {
+  margin: 40px 0;
+  border-top: 2px dashed #660033;
+}
+
+.decor-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.decor-thumb {
+  width: 120px;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid #660033;
+  opacity: 0.85;
+}
+
+#playMusicBtn {
+  display: block;
+  margin: 30px auto;
+  padding: 15px 50px;
+  font-size: 1.4em;
+  background: #000;
+  color: #ffc0cb;
+  border: 3px solid #660033;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #66003366;
+}
+
+body::before {
+  content: "";
   position: fixed;
-  width: 40px;
-  opacity: 0.5;
+  inset: 0;
+  background: repeating-linear-gradient(rgba(0,0,0,0.04) 0 1px, transparent 1px 2px),
+              repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 2px);
+  mix-blend-mode: multiply;
   pointer-events: none;
-  animation: floatGhost linear infinite alternate;
-  z-index: 900;
+  z-index: 999;
 }
 
-@keyframes floatGhost {
-  0% { transform: translate(0,0) rotate(0deg); }
-  50% { transform: translate(20px,-25px) rotate(10deg); }
-  100% { transform: translate(-15px,-15px) rotate(-10deg); }
+/* Enhanced 3D realistic creepy fish - more depth & varied movement */
+.fish-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+  perspective: 1200px; /* Deeper 3D effect */
 }
 
+.real-fish {
+  width: 60px;
+  height: 24px;
+  position: absolute;
+  opacity: 0.75;
+  background: radial-gradient(circle at 30% 50%, #1a1a1a 10%, #0a0a0a 50%, #000 90%); /* 3D-like shading */
+  border-radius: 50% 40% 40% 50%;
+  box-shadow: inset -8px 0 12px rgba(0,0,0,0.7), 0 4px 8px rgba(0,0,0,0.5), 0 -4px 8px rgba(0,0,0,0.3); /* Volumetric shadows for depth */
+  transform-style: preserve-3d; /* Enables 3D transforms */
+  animation: swim3D 160s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; /* Curved, varied path with ease */
+}
 
+/* Tail fin with 3D flip */
+.real-fish::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 4px;
+  width: 20px;
+  height: 16px;
+  background: linear-gradient(to right, #111, #0a0a0a);
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  opacity: 0.85;
+  transform-style: preserve-3d;
+  animation: swayTail3D 2.5s ease-in-out infinite alternate;
+}
 
+/* Creepy red eye with glow depth */
+.real-fish::before {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(#cc0000 20%, #880000 60%, #000 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ff3333, inset 0 1px 1px rgba(255,255,255,0.15); /* 3D highlight */
+}
+
+/* Varied 3D movement: curves, rotations, scale pulses, depth shifts */
+@keyframes swim3D {
+  0% { transform: translate(-80px, 30vh) rotateY(0deg) rotateZ(-5deg) scale(1) translateZ(0px); }
+  20% { transform: translate(25vw, 15vh) rotateY(20deg) rotateZ(8deg) scale(1.05) translateZ(50px); } /* Curve up, 3D tilt out */
+  40% { transform: translate(50vw, 45vh) rotateY(-15deg) rotateZ(-10deg) scale(0.95) translateZ(-30px); } /* Dip down, pull back in depth */
+  60% { transform: translate(75vw, 25vh) rotateY(10deg) rotateZ(6deg) scale(1.03) translateZ(40px); } /* Twist side, push forward */
+  80% { transform: translate(100vw, 50vh) rotateY(-25deg) rotateZ(-8deg) scale(0.98) translateZ(-20px); } /* Erratic curve, recede */
+  100% { transform: translate(130vw, 30vh) rotateY(0deg) rotateZ(-5deg) scale(1) translateZ(0px); }
+}
+
+/* Tail sway with 3D flip */
+@keyframes swayTail3D {
+  0% { transform: rotateY(0deg) rotateZ(0deg); }
+  100% { transform: rotateY(30deg) rotateZ(15deg); }
+}
+</style>
+</head>
+<body>
+
+<!-- Small creepy 3D fish -->
+<div class="fish-container">
+  <div class="real-fish"></div>
+</div>
+
+<h1>My Creepy Knowledge Archive</h1>
+<p>This is where I store what I see, feel, think, hear, smell</p>
+
+<button id="playMusicBtn">PLAY MUSIC</button>
+<iframe id="ytPlayer" width="0" height="0" src="https://www.youtube.com/embed/nZOrhNlbFHc?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" style="display:none;"></iframe>
+
+<hr>
+<h2>Physics</h2>
+<p>i hate it so sumch i ve always felt that it is fake , not true , edited , a lie</p>
+
+<div class="decor-cluster">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/6b/12/2e/6b122e84d6175850f9bf039e88661da6.jpg">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/2a/8b/ec/2a8becffd6db5057e3b6ae4592d580e3.jpg">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/71/b5/45/71b54536f8aa38a1100d12406551ad7a.jpg">
+</div>
+
+<hr>
+<h2>My Psychology</h2>
+<p>i usually 99% of time live with zero consciousness...</p>
+
+<div class="decor-cluster">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/e8/47/4f/e8474f64812c6386f5b7789f9c718f5f.jpg">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/b5/d6/48/b5d648d949f13533a2aad611faf5cc39.jpg">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/82/eb/8f/82eb8f80ea9bbb71ac56abcccbca548f.jpg">
+</div>
+
+<hr>
+<h2>My DS and Studies</h2>
+<p>I AM NOT PERFECT, I AM A HORRIBLE SAD MESS...</p>
+
+<div class="decor-cluster">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/f9/ea/3b/f9ea3b6c7d4056fdacee98623ae9c673.jpg">
+  <img class="decor-thumb" src="https://i.pinimg.com/736x/85/67/1b/85671bf0af96745f2d4c2b0ac47efd2c.jpg">
+  <!-- Add the rest of your thumbs here whenever you want -->
+</div>
+
+<script>
+// Music button
+const btn = document.getElementById('playMusicBtn');
+const player = document.getElementById('ytPlayer');
+btn.onclick = () => {
+  player.style.display = "block";
+  player.src += "&autoplay=1";
+  btn.innerText = "MUSIC PLAYING";
+  btn.disabled = true;
+};
+</script>
+
+</body>
+</html>
 
 
 
